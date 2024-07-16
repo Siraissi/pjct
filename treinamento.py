@@ -48,6 +48,12 @@ def load_data(input_dir, annotations_dir):
                 continue
 
             image = cv2.resize(image, (1536, 768))
+            
+            # Converta a imagem para dois canais se necessário
+            # Por exemplo, convertendo para escala de cinza e duplicando o canal
+            image_gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+            image = np.stack((image_gray, image_gray), axis=-1)  # Dois canais
+
             images.append(image)
 
             # Para simplificar, usaremos apenas a primeira anotação como o rótulo
