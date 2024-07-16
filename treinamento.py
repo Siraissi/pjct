@@ -119,7 +119,7 @@ model.compile(optimizer='adam',
               metrics=['accuracy'])
 
 # Treinar o modelo
-history = model.fit(x_train, y_train, epochs=10, batch_size=32, validation_data=(x_val, y_val))
+history = model.fit(x_train, y_train, epochs=10, batch_size=25, validation_data=(x_val, y_val))
 
 # Salvar o modelo treinado
 model.save('modelo_radiografias.h5')
