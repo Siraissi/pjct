@@ -9,12 +9,15 @@ from sklearn.model_selection import train_test_split
 from tensorflow.keras.utils import to_categorical
 import cv2
 
-# Configuração de GPU
+# Configuração de GPU com limitação de memória
 gpus = tf.config.experimental.list_physical_devices('GPU')
 if gpus:
     try:
         for gpu in gpus:
             tf.config.experimental.set_memory_growth(gpu, True)
+            tf.config.experimental.set_virtual_device_configuration(
+                gpu,
+                [tf.config.experimental.VirtualDeviceConfiguration(memory_limit=4096)])  # Limite de memória em MB
     except RuntimeError as e:
         print(e)
 
@@ -23,7 +26,7 @@ input_dir = 'C:/Users/Siraissi/Documents/GitHub/pjct/annotation/Radiografias/Pan
 annotations_dir = 'C:/Users/Siraissi/Documents/GitHub/pjct/annotation'
 
 # Parâmetros do modelo
-input_shape = (1536, 768, 2)  # Redimensionado para (1536, 768)
+input_shape = (768, 1536, 3)  # Ajustado para (768, 1536, 3)
 num_classes = 36  # Número de classes de anotações
 
 # Função para carregar as anotações
@@ -48,11 +51,6 @@ def load_data(input_dir, annotations_dir):
                 continue
 
             image = cv2.resize(image, (1536, 768))
-            
-            # Converta a imagem para dois canais se necessário
-            # Por exemplo, convertendo para escala de cinza e duplicando o canal
-            image_gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-            image = np.stack((image_gray, image_gray), axis=-1)  # Dois canais
 
             images.append(image)
 
@@ -107,6 +105,11 @@ def load_data(input_dir, annotations_dir):
 images, labels = load_data(input_dir, annotations_dir)
 x_train, x_val, y_train, y_val = train_test_split(images, labels, test_size=0.2, random_state=42)
 
+# Definir o gerador de dados
+datagen = ImageDataGenerator()
+train_gen = datagen.flow(x_train, y_train, batch_size=8)  # Tamanho do lote reduzido para 8
+val_gen = datagen.flow(x_val, y_val, batch_size=8)  # Tamanho do lote reduzido para 8
+
 # Definir o modelo
 model = models.Sequential([
     layers.Conv2D(32, (3, 3), activation='relu', input_shape=input_shape),
@@ -126,7 +129,7 @@ model.compile(optimizer='adam',
               metrics=['accuracy'])
 
 # Treinar o modelo
-history = model.fit(x_train, y_train, epochs=10, batch_size=25, validation_data=(x_val, y_val))
+history = model.fit(train_gen, epochs=10, validation_data=val_gen)
 
 # Salvar o modelo treinado
 model.save('modelo_radiografias2.h5')
