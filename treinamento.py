@@ -4,9 +4,9 @@ import numpy as np
 import tensorflow as tf
 from tensorflow import keras
 from keras import layers, models, optimizers
-from keras import ImageDataGenerator
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from sklearn.model_selection import train_test_split
-from keras import to_categorical 
+from tensorflow.keras.utils import to_categorical
 import cv2
 
 # Configuração de GPU
@@ -123,6 +123,6 @@ model.compile(optimizer='adam',
 history = model.fit(x_train, y_train, epochs=10, batch_size=25, validation_data=(x_val, y_val))
 
 # Salvar o modelo treinado
-model.save('modelo_radiografias.h5')
+model.save('modelo_radiografias2.h5')
 
 print("Treinamento concluído e modelo salvo.")
