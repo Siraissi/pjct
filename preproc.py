@@ -2,8 +2,8 @@ import cv2
 import os
 
 # Diretório de entrada e saída
-input_dirs = ['C:/Users/Siraissi/Documents/GitHub/pjct/img_treino', 'C:/Users/Siraissi/Documents/GitHub/pjct/img_valid']
-output_dirs = ['C:/Users/Siraissi/Documents/GitHub/pjct/img_treino/img_treino_cut', 'C:/Users/Siraissi/Documents/GitHub/pjct/img_valid/img_valid_cut']
+input_dirs = ['C:/Users/Siraissi/Documents/GitHub/pjct/img_treino', 'C:/Users/Siraissi/Documents/GitHub/pjct/img_valid', 'C:/Users/Siraissi/Documents/GitHub/pjct/img_test']
+output_dirs = ['C:/Users/Siraissi/Documents/GitHub/pjct/img_treino/img_treino_cut', 'C:/Users/Siraissi/Documents/GitHub/pjct/img_valid/img_valid_cut','C:/Users/Siraissi/Documents/GitHub/pjct/img_test/img_test_cut']
 
 # Verificar se as listas de diretórios têm o mesmo comprimento
 if len(input_dirs) != len(output_dirs):
