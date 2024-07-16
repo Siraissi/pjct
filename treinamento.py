@@ -11,9 +11,9 @@ epochs = 20
 input_shape = (256, 256, 3)  # Tamanho das imagens após o preprocessamento
 
 # Diretórios dos dados
-train_dir = 'caminho_para_seu_diretorio_de_treino'
-val_dir = 'caminho_para_seu_diretorio_de_validacao'
-test_dir = 'caminho_para_seu_diretorio_de_teste'
+train_dir = 'C:/Users/Siraissi/Documents/GitHub/pjct/img_treino/img_treino_cut'
+val_dir = 'C:/Users/Siraissi/Documents/GitHub/pjct/img_valid/img_valid_cut'
+test_dir = 'C:/Users/Siraissi/Documents/GitHub/pjct/img_test/img_test_cut'
 
 # Criar geradores de dados usando ImageDataGenerator
 train_datagen = ImageDataGenerator(rescale=1./255)
@@ -45,7 +45,7 @@ model = models.Sequential([
     layers.MaxPooling2D((2, 2)),
     layers.Flatten(),
     layers.Dense(512, activation='relu'),
-    layers.Dense(num_classes, activation='softmax')  # Substitua num_classes pelo número de classes do seu problema
+    layers.Dense(36, activation='softmax')  # Substitua num_classes pelo número de classes do seu problema
 ])
 
 # Compilar o modelo
