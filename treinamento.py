@@ -1,12 +1,12 @@
+from tensorflow import keras
+from tensorflow.keras import layers, models
 import os
 import json
 import numpy as np
 import tensorflow as tf
-from tensorflow import keras
-from keras import layers, models
-from tensorflow.keras.utils import to_categorical
 import cv2
 from sklearn.model_selection import train_test_split
+from tensorflow.keras.utils import to_categorical
 
 # Caminhos dos diretórios
 input_dir = 'C:/Users/Siraissi/Documents/GitHub/pjct/annotation/Radiografias/Panoramicas/pan_cut'
@@ -63,7 +63,7 @@ def load_data(input_dir, annotations_dir):
                 print(f"Estrutura inválida no arquivo JSON: {filename}")
 
     images = np.array(images, dtype='float32') / 255.0
-    labels = to_categorical(labels, num_classes=num_classes)
+    labels = np.array(labels, dtype='float32')  # Convertendo para array de float32
     return images, labels
 
 # Carregar e dividir os dados
@@ -82,8 +82,8 @@ x_train, x_val, y_train, y_val = train_test_split(images, labels, test_size=0.2,
 print(f"Tamanho de x_train: {len(x_train)}, Tamanho de x_val: {len(x_val)}")
 
 # Usar tf.data.Dataset para carregamento de dados
-train_dataset = tf.data.Dataset.from_tensor_slices((x_train, y_train)).batch(124).prefetch(tf.data.experimental.AUTOTUNE)
-val_dataset = tf.data.Dataset.from_tensor_slices((x_val, y_val)).batch(124).prefetch(tf.data.experimental.AUTOTUNE)
+train_dataset = tf.data.Dataset.from_tensor_slices((x_train, y_train)).batch(12).prefetch(tf.data.experimental.AUTOTUNE)
+val_dataset = tf.data.Dataset.from_tensor_slices((x_val, y_val)).batch(12).prefetch(tf.data.experimental.AUTOTUNE)
 
 # Definir o modelo
 model = models.Sequential([
@@ -96,12 +96,12 @@ model = models.Sequential([
     layers.MaxPooling2D((2, 2)),
     layers.Flatten(),
     layers.Dense(256, activation='relu'),
-    layers.Dense(num_classes, activation='softmax')
+    layers.Dense(1, activation='sigmoid')  # Camada de saída para classificação binária
 ])
 
 # Compilar o modelo
 model.compile(optimizer='adam',
-              loss='categorical_crossentropy',
+              loss='binary_crossentropy',  # Usar 'binary_crossentropy' para classificação binária
               metrics=['accuracy'])
 
 # Configurar callbacks para liberar memória
