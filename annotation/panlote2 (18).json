@@ -1,0 +1,35 @@
+{
+    "description": "",
+    "tags": [],
+    "size": {
+        "height": 768,
+        "width": 1536
+    },
+    "objects": [
+        {
+            "id": 1579263566,
+            "classId": 13244018,
+            "objectId": null,
+            "description": "",
+            "geometryType": "rectangle",
+            "labelerLogin": "guiyamashita",
+            "createdAt": "2024-07-18T12:54:16.610Z",
+            "updatedAt": "2024-07-18T12:54:16.610Z",
+            "tags": [],
+            "classTitle": "Panoramica",
+            "points": {
+                "exterior": [
+                    [
+                        0,
+                        0
+                    ],
+                    [
+                        1535,
+                        767
+                    ]
+                ],
+                "interior": []
+            }
+        }
+    ]
+}
