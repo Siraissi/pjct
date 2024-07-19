@@ -9,8 +9,8 @@ from sklearn.model_selection import train_test_split
 from tensorflow.keras.utils import to_categorical
 
 # Caminhos dos diretórios
-input_dir = 'C:/Users/Siraissi/Documents/GitHub/pjct/annotation/Radiografias/Panoramicas/pan_cut'
-annotations_dir = 'C:/Users/Siraissi/Documents/GitHub/pjct/annotation'
+input_dir = '/home/ubuntu/pjct/annotation/Radiografias/Panoramicas/pan_cut'
+annotations_dir = '/home/ubuntu/pjct/annotation'
 
 # Parâmetros do modelo
 input_shape = (1536, 768, 3)  # Ajustado para (1536, 768, 3)
@@ -36,13 +36,8 @@ def load_data(input_dir, annotations_dir):
                 object_info = annotation['objects'][0]
                 class_title = object_info.get('classTitle', None)
 
-                if class_title == "Panoramica":  # Exemplo de condição para classe específica
-                    # Obter o nome do arquivo da imagem a partir de outra fonte nas anotações
-                    # Aqui você deve ajustar conforme a estrutura real das suas anotações
-                    # Por exemplo, se o nome do arquivo estiver em algum campo específico do JSON:
-                    # image_filename = annotation.get('imageName', None)
+                if class_title == "Panoramica":  
 
-                    # Supondo que você tenha o nome do arquivo como parte do nome do JSON
                     image_filename = filename.replace('.json', '.jpg')
                     image_path = os.path.join(input_dir, image_filename)
 
