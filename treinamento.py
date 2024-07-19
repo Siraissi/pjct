@@ -9,8 +9,8 @@ from sklearn.model_selection import train_test_split
 from tensorflow.keras.utils import to_categorical
 
 # Caminhos dos diretórios
-input_dir = '/home/ubuntu/pjct/annotation/Radiografias/Panoramicas/pan_cut'
-annotations_dir = '/home/ubuntu/pjct/annotation'
+input_dir = 'C:/Users/Siraissi/Documents/GitHub/pjct/annotation/Radiografias/Panoramicas/pan_cut'
+annotations_dir = 'C:/Users/Siraissi/Documents/GitHub/pjct/annotation'
 
 # Parâmetros do modelo
 input_shape = (1536, 768, 3)  # Ajustado para (1536, 768, 3)
