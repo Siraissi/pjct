@@ -1,12 +1,12 @@
 from tensorflow import keras
-from tensorflow.keras import layers, models
+from tensorflow.keras import layers, models # type: ignore
 import os
 import json
 import numpy as np
 import tensorflow as tf
 import cv2
 from sklearn.model_selection import train_test_split
-from tensorflow.keras.utils import to_categorical
+from tensorflow.keras.utils import to_categorical # type: ignore
 
 # Caminhos dos diretórios
 input_dir = 'C:/Users/Siraissi/Documents/GitHub/pjct/annotation/Radiografias/Panoramicas/pan_cut'
